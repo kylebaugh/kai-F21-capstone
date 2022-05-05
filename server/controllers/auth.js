@@ -76,12 +76,15 @@ module.exports = {
   },
 
   favorite: (req, res) => {
-    const {  agent_name  } = req.body;
     console.log(req.body);
+    console.log('favorite server hit')
+    const {  agent_name, agent_description  } = req.body;
     sequelize.query(`
-          INSERT INTO users_fav(agentName)
-          VALUES('${agent_name}');
-      `).then(dbRes => res.status(200).send(dbRes[0]))
+          INSERT INTO users_fav(agent_name, agent_description)
+          VALUES('${agent_name}', '${agent_description}');
+      `)
+      // res.sendStatus(200)
+      .then(dbRes => res.status(200).send(dbRes[0]))
       .catch(err => console.log(err))
   },
 
